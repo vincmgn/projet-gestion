@@ -1,0 +1,28 @@
+services:
+  api:
+    build:
+      context: .  # Utilisation du contexte à la racine
+      dockerfile: Backend/Dockerfile  # Chemin relatif vers le Dockerfile dans le dossier Backend
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    depends_on:
+      - mysql-db
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
+  mysql-db:
+    image: mysql:latest
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: YourDatabaseName
+      MYSQL_USER: youruser
+      MYSQL_PASSWORD: yourpassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:

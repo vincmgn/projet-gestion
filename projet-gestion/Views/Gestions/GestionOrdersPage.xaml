@@ -1,0 +1,31 @@
+﻿<Page x:Class="projet_gestion.Views.Gestions.GestionOrdersPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Commandes">
+    <Grid Background="#fafafa">
+        <!-- Fond gris clair pour une apparence épurée -->
+        <StackPanel Margin="20">
+            <TextBlock Text="Commandes" FontSize="28" FontWeight="Bold" Margin="0,0,0,20" Foreground="#FFC107"/>
+
+            <DataGrid Name="OrdersDataGrid" AutoGenerateColumns="False" IsReadOnly="True" Height="400"
+                      Background="#ffffff"
+                      BorderBrush="#FFC107" BorderThickness="1"
+                      RowBackground="#FFF8E1" AlternatingRowBackground="#FFECB3">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
+                    <DataGridTextColumn Header="Client ID" Binding="{Binding ClientId}" Width="2*"/>
+                    <DataGridTextColumn Header="Produit ID" Binding="{Binding ProductId}" Width="2*"/>
+                    <DataGridTextColumn Header="Quantité" Binding="{Binding Quantity}" Width="2*"/>
+                    <DataGridTextColumn Header="Date de commande" Binding="{Binding DateCommande}" Width="3*"/>
+                    <DataGridTextColumn Header="Statut" Binding="{Binding Statut}" Width="2*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <Button Content="Ajouter une commande" Width="150" Margin="0,20,0,0" HorizontalAlignment="Left"
+                    Background="#FFC107" Foreground="White" FontWeight="Bold"
+                    BorderBrush="#FFA000" BorderThickness="2"
+                    Padding="10,5" Cursor="Hand" Click="AddOrderButton_Click"/>
+
+        </StackPanel>
+    </Grid>
+</Page>

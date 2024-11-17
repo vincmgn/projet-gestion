@@ -1,0 +1,38 @@
+﻿<Page x:Class="projet_gestion.Views.Dashboard"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:projet_gestion.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="DashboardPage">
+
+    <Grid Background="#f0f4f8">
+        <!-- Fond léger bleu/gris -->
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="20,20,0,0">
+            <TextBlock Text="Produit Best Seller : " FontWeight="Bold" FontSize="16" Foreground="#3f51b5"/>
+            <TextBlock Text="{Binding BestSeller}" FontSize="16" Foreground="#4caf50" Margin="10,0,0,0"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="20,80,0,0">
+            <TextBlock Text="Montant Total des Ventes : " FontWeight="Bold" FontSize="16" Foreground="#3f51b5"/>
+            <TextBlock Text="{Binding TotalSales}" FontSize="16" Foreground="#2196f3" Margin="10,0,0,0"/>
+        </StackPanel>
+
+        <Border HorizontalAlignment="Right" Width="300" Height="200" Margin="20"
+                BorderBrush="#3f51b5" BorderThickness="2" Background="White" CornerRadius="10">
+            <!-- Ajoutez ici le contenu pour le diagramme -->
+            <TextBlock Text="Diagramme à insérer" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#9e9e9e"/>
+        </Border>
+
+        <ListBox ItemsSource="{Binding LowStockNotifications}" VerticalAlignment="Bottom" Height="120" Margin="20,0,20,20"
+                 Background="#ffffff" BorderBrush="#3f51b5" BorderThickness="1">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" Foreground="#d32f2f" FontSize="14" Padding="5"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</Page>
