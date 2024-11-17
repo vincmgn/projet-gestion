@@ -1,7 +1,5 @@
-﻿using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using projet_gestion.ViewModels;
-using projet_gestion.Views.Dialogs;
 
 namespace projet_gestion.Views.Gestions
 {

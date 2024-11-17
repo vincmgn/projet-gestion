@@ -1,28 +1,76 @@
 ﻿<Page x:Class="projet_gestion.Views.Gestions.GestionClientsPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:fa="http://schemas.fontawesome.io/icons/"      
       Title="Clients">
     <Grid Background="#e8f5e9">
-        <!-- Fond vert clair pour une apparence douce -->
         <StackPanel Margin="20">
             <TextBlock Text="Clients" FontSize="28" FontWeight="Bold" Margin="0,0,0,20" Foreground="#388e3c"/>
 
-            <DataGrid Name="ClientsDataGrid" AutoGenerateColumns="False" IsReadOnly="True" Height="300"
+            <DataGrid Name="ClientsDataGrid" 
+                      AutoGenerateColumns="False" 
+                      IsReadOnly="True" 
+                      Height="300"
                       Background="#ffffff"
-                      BorderBrush="#388e3c" BorderThickness="1"
-                      RowBackground="#e8f5e9" AlternatingRowBackground="#c8e6c9">
+                      BorderBrush="#388e3c"
+                      BorderThickness="1"
+                      RowBackground="#e8f5e9" 
+                      AlternatingRowBackground="#c8e6c9" 
+                      ItemsSource="{Binding Clients}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
                     <DataGridTextColumn Header="Nom" Binding="{Binding Name}" Width="2*"/>
                     <DataGridTextColumn Header="Adresse" Binding="{Binding Address}" Width="3*"/>
                     <DataGridTextColumn Header="SIRET" Binding="{Binding Siret}" Width="2*"/>
+
+                    <DataGridTemplateColumn Header="Actions" Width="70">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <!-- Bouton de modification -->
+                                    <Button Width="25" Height="25" Margin="5" 
+                                            Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                            CommandParameter="{Binding}"
+                                            HorizontalContentAlignment="Center" 
+                                            VerticalContentAlignment="Center"
+                                            Cursor="Hand"
+                                            Background="#5136ce" 
+                                            Foreground="White" 
+                                            BorderBrush="#2000b5"
+                                            BorderThickness="2" >
+                                        <Button.Content>
+                                            <fa:FontAwesome Icon="Edit"/>
+                                        </Button.Content>
+                                    </Button>
+
+                                    <!-- Bouton de suppression -->
+                                    <Button Width="25" Height="25" Margin="5" 
+                                            Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                            CommandParameter="{Binding}"
+                                            HorizontalContentAlignment="Center" 
+                                            VerticalContentAlignment="Center"
+                                            Cursor="Hand"
+                                            Background="#ce5136" 
+                                            Foreground="White" 
+                                            BorderBrush="#b52000" 
+                                            BorderThickness="2" >
+                                        <Button.Content>
+                                            <fa:FontAwesome Icon="Remove"/>
+                                        </Button.Content>
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
                 </DataGrid.Columns>
             </DataGrid>
+
 
             <Button Content="Ajouter un client" Width="150" Margin="0,20,0,0" HorizontalAlignment="Left"
                     Background="#388e3c" Foreground="White" FontWeight="Bold"
                     BorderBrush="#2e7d32" BorderThickness="2"
-                    Padding="10,5" Cursor="Hand" Click="AddClientButton_Click"/>
+                    Padding="10,5" Cursor="Hand" Command="{Binding AddClientCommand}"/>
         </StackPanel>
     </Grid>
 </Page>

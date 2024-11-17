@@ -29,7 +29,6 @@
                                         Binding="{Binding Name}" 
                                         Width="1*" />
 
-                    <!-- Nouvelle colonne avec des boutons pour la modification et la suppression -->
                     <DataGridTemplateColumn Header="Actions" Width="70">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>

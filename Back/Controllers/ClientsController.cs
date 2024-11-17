@@ -52,7 +52,32 @@ namespace Back.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(client).State = EntityState.Modified;
+            // Récupérer le client existant avec ses commandes
+            var existingClient = await _context.Clients
+                                                .Include(c => c.Orders) // Inclure les commandes
+                                                .FirstOrDefaultAsync(c => c.Id == id);
+
+            if (existingClient == null)
+            {
+                return NotFound();
+            }
+
+            // Mettre à jour les informations du client
+            existingClient.Name = client.Name;
+            existingClient.Address = client.Address;
+            existingClient.Siret = client.Siret;
+
+            // Si le client envoie de nouvelles commandes, on les remplace,
+            // sinon on conserve les commandes existantes
+            if (client.Orders != null && client.Orders.Any())
+            {
+                existingClient.Orders = client.Orders; // Remplacer la liste des commandes
+            }
+            else
+            {
+                // Si aucune commande n'est envoyée, on conserve les commandes existantes
+                existingClient.Orders = existingClient.Orders ?? new List<Order>();
+            }
 
             try
             {
@@ -72,6 +97,7 @@ namespace Back.Controllers
 
             return NoContent();
         }
+
 
         // POST: api/Clients
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
