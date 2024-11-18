@@ -1,41 +1,55 @@
 ﻿<Window x:Class="projet_gestion.Views.Dialogs.AddProductDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Ajouter un produit"
+        xmlns:local="clr-namespace:projet_gestion"
+        Title="{Binding DialogTitle}"
         Width="350" Height="550" 
         WindowStartupLocation="CenterOwner" 
         ResizeMode="NoResize">
 
+        <Window.Resources>
+            <local:NullToBoolConverter x:Key="NullToBoolConverter"/>
+        </Window.Resources>
+
     <Grid Background="#fafafa">
         <StackPanel Margin="20">
             <TextBlock Text="Nom du produit :" FontSize="14" Margin="0,0,0,10"/>
-            <TextBox Name="ProductNameTextBox" Height="30" Margin="0,0,0,10"/>
+            <TextBox Text="{Binding ProductName, UpdateSourceTrigger=PropertyChanged}" Height="30" Margin="0,0,0,10"/>
 
             <TextBlock Text="Quantité :" FontSize="14" Margin="0,0,0,10"/>
-            <TextBox Name="ProductQuantityTextBox" Height="30" Margin="0,0,0,10"/>
+            <TextBox Text="{Binding ProductQuantity, UpdateSourceTrigger=PropertyChanged}" Height="30" Margin="0,0,0,10"/>
 
             <TextBlock Text="Prix :" FontSize="14" Margin="0,0,0,10"/>
-            <TextBox Name="ProductPriceTextBox" Height="30" Margin="0,0,0,10"/>
+            <TextBox Text="{Binding ProductPrice, UpdateSourceTrigger=PropertyChanged}" Height="30" Margin="0,0,0,10" PreviewTextInput="PriceTextBox_PreviewTextInput"/>
 
             <TextBlock Text="Date de péremption :" FontSize="14" Margin="0,0,0,10"/>
-            <DatePicker Name="ProductExpirationDatePicker" Height="30" Margin="0,0,0,10"/>
+            <DatePicker Text="{Binding ProductDatePeremption, UpdateSourceTrigger=PropertyChanged, StringFormat='dd-MM-yyyy'}" 
+            Height="30" Margin="0,0,0,10"/>
 
             <TextBlock Text="Catégorie :" FontSize="14" Margin="0,0,0,10"/>
             <!-- ComboBox pour les catégories -->
-            <ComboBox Name="ProductCategoryComboBox" Height="30" Margin="0,0,0,10">
-                <ComboBoxItem Content="Électronique"/>
-                <ComboBoxItem Content="Alimentation"/>
-                <ComboBoxItem Content="Vêtements"/>
-                <ComboBoxItem Content="Maison"/>
+            <ComboBox SelectedValue="{Binding ProductCategoryId, UpdateSourceTrigger=PropertyChanged}" 
+                      SelectedValuePath="Tag" 
+                      DisplayMemberPath="Content"
+                      Height="30" Margin="0,0,0,10">
+                <ComboBoxItem Content="---Choisir---" Tag="{x:Null}" />
+                <ComboBoxItem Content="Électronique" Tag="1"/>
+                <ComboBoxItem Content="Alimentation" Tag="2"/>
+                <ComboBoxItem Content="Vêtements" Tag="3"/>
+                <ComboBoxItem Content="Maison" Tag="4"/>
             </ComboBox>
 
+
+
+
+
             <TextBlock Text="Emplacement :" FontSize="14" Margin="0,0,0,10"/>
-            <TextBox Name="ProductLocationTextBox" Height="30" Margin="0,0,0,20"/>
+                <TextBox Text="{Binding ProductEmplacement, UpdateSourceTrigger=PropertyChanged}" Height="30" Margin="0,0,0,20"/>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content="Annuler" Width="80" Margin="0,0,10,0" Click="Cancel_Click"
+                    <Button Content="Annuler" Width="80" Margin="0,0,10,0" Command="{Binding CancelCommand}"
                         Background="#c62828" Foreground="White" />
-                <Button Content="Ajouter" Width="80" Click="Add_Click" 
+                    <Button Content="{Binding ActionButtonContent}" Width="80" Command="{Binding AddProductCommand}" 
                         Background="#3f51b5" Foreground="White" />
             </StackPanel>
         </StackPanel>

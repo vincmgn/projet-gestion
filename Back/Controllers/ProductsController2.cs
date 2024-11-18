@@ -5,18 +5,18 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Back.Models;
 using Backend.Data;
+using Back.Models;
 
 namespace Back.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductsController : ControllerBase
+    public class ProductsController2 : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public ProductsController(ApplicationDbContext context)
+        public ProductsController2(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -78,15 +78,12 @@ namespace Back.Controllers
         [HttpPost]
         public async Task<ActionResult<Product>> PostProduct(Product product)
         {
-            if(product.CategoryId == null)
-            {
-                return BadRequest("L'ID de la catégorie est obligatoire.");
-            }
+            System.Diagnostics.Debug.WriteLine($"PRODUUUUUUUUUUUUUCT: {product}");
 
-            var category = await _context.Categories.FindAsync(product.CategoryId);
-            if(category == null)
+            var category = await _context.Categories.FindAsync(product.CategoryId.Value);
+            if (category == null)
             {
-                return BadRequest("La catégorie spécifiée n'existe pas.");
+                return BadRequest("La catégorie spécifiée n'existe pas");
             }
 
             _context.Products.Add(product);

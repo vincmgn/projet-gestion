@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using projet_gestion.ViewModels.Dialogs;
+using System.Windows;
 
 namespace projet_gestion.Views.Dialogs
 {

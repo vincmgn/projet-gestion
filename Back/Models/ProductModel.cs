@@ -1,4 +1,6 @@
-﻿namespace Back.Models
+﻿using System.Text.Json.Serialization;
+
+namespace Back.Models
 {
     public class Product
     {
@@ -7,11 +9,10 @@
         public string Name { get; set; }
         public decimal Price { get; set; }
         public DateTime DatePeremption { get; set; }
-        public int CategoryId { get; set; }
+        public int? CategoryId { get; set; }
         public string Emplacement { get; set; }
 
-        
-        // Navigation property
-        public Category Category { get; set; }  // Relation avec Category
+        [JsonIgnore]
+        public Category? Category { get; set; }
     }
 }

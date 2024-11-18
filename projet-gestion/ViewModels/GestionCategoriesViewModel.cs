@@ -1,4 +1,5 @@
 ﻿using Back.Models;
+using projet_gestion.ViewModels.Dialogs;
 using projet_gestion.Views.Dialogs;
 using System.Collections.ObjectModel;
 using System.Net.Http;
