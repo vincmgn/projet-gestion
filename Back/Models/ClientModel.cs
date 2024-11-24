@@ -1,4 +1,6 @@
-﻿namespace Back.Models
+﻿using System.Text.Json.Serialization;
+
+namespace Back.Models
 {
     public class Client
     {
@@ -8,6 +10,7 @@
         public string Siret { get; set; }
 
         // Navigation property (pour accéder aux commandes de ce client)
+        [JsonIgnore]
         public List<Order> Orders { get; set; }  // Relation un-à-plusieurs avec Order
     }
 }

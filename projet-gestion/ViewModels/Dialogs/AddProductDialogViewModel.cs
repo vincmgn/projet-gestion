@@ -1,5 +1,6 @@
 ﻿using Back.Models;
 using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -12,13 +13,15 @@ namespace projet_gestion.ViewModels.Dialogs
     public class AddProductDialogViewModel : BaseViewModel
     {
         private readonly HttpClient _httpClient;
+        public ObservableCollection<Category> Categories { get; set; } = new ObservableCollection<Category>();
+
 
         // Propriétés
         public int? ProductId { get; set; } 
         public string ProductName { get; set; }
         public int ProductQuantity { get; set; } 
         public decimal ProductPrice { get; set; }
-        public DateTime ProductDatePeremption { get; set; } = DateTime.Today; 
+        public DateTime ProductDatePeremption { get; set; } = DateTime.Now;
         public int? ProductCategoryId { get; set; } = null;
         public string ProductEmplacement { get; set; }
 
@@ -39,6 +42,7 @@ namespace projet_gestion.ViewModels.Dialogs
         public AddProductDialogViewModel(Product? productToEdit = null)
         {
             _httpClient = new HttpClient();
+            LoadCategoriesAsync();
 
             // Commandes
             AddProductCommand = new RelayCommand(async param => await ExecuteAddOrEditProductAsync());
@@ -54,6 +58,25 @@ namespace projet_gestion.ViewModels.Dialogs
                 ProductDatePeremption = productToEdit.DatePeremption;
                 ProductCategoryId = productToEdit.CategoryId;
                 ProductEmplacement = productToEdit.Emplacement;
+            }
+        }
+        private async Task LoadCategoriesAsync()
+        {
+            try
+            {
+                var categories = await _httpClient.GetFromJsonAsync<List<Category>>("http://localhost:5042/api/Categories");
+                if (categories != null)
+                {
+                    Categories.Clear();
+                    foreach (var category in categories)
+                    {
+                        Categories.Add(category);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erreur lors du chargement des catégories : {ex.Message}");
             }
         }
 
@@ -105,7 +128,7 @@ namespace projet_gestion.ViewModels.Dialogs
                         Quantity = ProductQuantity,
                         Price = ProductPrice,
                         DatePeremption = ProductDatePeremption,
-                        CategoryId = 1, ///////////////////////////////// REPREBDRE l'ID DE LA CATEGORIE
+                        CategoryId = ProductCategoryId,
                         Emplacement = ProductEmplacement,
                     };
 

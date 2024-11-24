@@ -1,4 +1,6 @@
-﻿namespace Back.Models
+﻿using System.Text.Json.Serialization;
+
+namespace Back.Models
 {
     public class Order
     {
@@ -11,7 +13,9 @@
 
 
         // Navigation properties
+        [JsonIgnore]
         public Client Client { get; set; }  // Relation avec Client
+        [JsonIgnore]
         public Product Product { get; set; }  // Relation avec Product
     }
 }
