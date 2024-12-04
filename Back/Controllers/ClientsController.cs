@@ -10,6 +10,9 @@ using Back.Models;
 
 namespace Back.Controllers
 {
+    /// <summary>
+    /// API pour gérer les clients.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class ClientsController : ControllerBase
@@ -21,14 +24,22 @@ namespace Back.Controllers
             _context = context;
         }
 
-        // GET: api/Clients
+        /// <summary>
+        /// Récupère tous les clients
+        /// </summary>
+        /// <returns>Liste des clients</returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Client>>> GetClients()
         {
             return await _context.Clients.ToListAsync();
         }
 
-        // GET: api/Clients/5
+        /// <summary>
+        /// Récupère un client par son ID
+        /// </summary>
+        /// <param name="id">ID du client à récupérer</param>
+        /// <returns>Le client correspondant à l'ID</returns>
+        /// <response code="404">Client non trouvé</response>
         [HttpGet("{id}")]
         public async Task<ActionResult<Client>> GetClient(int id)
         {
@@ -42,8 +53,14 @@ namespace Back.Controllers
             return client;
         }
 
-        // PUT: api/Clients/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// Met à jour les informations d'un client
+        /// </summary>
+        /// <param name="id">ID du client à mettre à jour</param>
+        /// <param name="client">Le client avec les nouvelles données</param>
+        /// <returns>Résultat de la mise à jour</returns>
+        /// <response code="400">ID non valide ou données incorrectes</response>
+        /// <response code="404">Client non trouvé</response>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutClient(int id, Client client)
         {
@@ -98,9 +115,12 @@ namespace Back.Controllers
             return NoContent();
         }
 
-
-        // POST: api/Clients
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// Crée un nouveau client
+        /// </summary>
+        /// <param name="client">Le client à créer</param>
+        /// <returns>Le client créé</returns>
+        /// <response code="400">Données invalides</response>
         [HttpPost]
         public async Task<ActionResult<Client>> PostClient(Client client)
         {
@@ -110,7 +130,12 @@ namespace Back.Controllers
             return CreatedAtAction("GetClient", new { id = client.Id }, client);
         }
 
-        // DELETE: api/Clients/5
+        /// <summary>
+        /// Supprime un client par son ID
+        /// </summary>
+        /// <param name="id">ID du client à supprimer</param>
+        /// <returns>Résultat de la suppression</returns>
+        /// <response code="404">Client non trouvé</response>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteClient(int id)
         {

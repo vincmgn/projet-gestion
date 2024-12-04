@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using Back.Models;
 using Backend.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Back.Controllers
 {
+    /// <summary>
+    /// API pour gérer les catégories.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class CategoriesController : ControllerBase
@@ -21,15 +19,25 @@ namespace Back.Controllers
             _context = context;
         }
 
-        // GET: api/Categories
+        /// <summary>
+        /// Récupère toutes les catégories.
+        /// </summary>
+        /// <returns>Liste des catégories.</returns>
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<Category>), 200)]
         public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
         {
             return await _context.Categories.ToListAsync();
         }
 
-        // GET: api/Categories/5
+        /// <summary>
+        /// Récupère une catégorie par son ID.
+        /// </summary>
+        /// <param name="id">L'identifiant de la catégorie.</param>
+        /// <returns>Une catégorie.</returns>
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(Category), 200)]
+        [ProducesResponseType(404)]
         public async Task<ActionResult<Category>> GetCategory(int id)
         {
             var category = await _context.Categories.FindAsync(id);
@@ -42,9 +50,16 @@ namespace Back.Controllers
             return category;
         }
 
-        // PUT: api/Categories/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// Met à jour une catégorie existante.
+        /// </summary>
+        /// <param name="id">L'identifiant de la catégorie.</param>
+        /// <param name="category">Les données de la catégorie.</param>
+        /// <returns>Aucune donnée si réussi.</returns>
         [HttpPut("{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> PutCategory(int id, Category category)
         {
             if (id != category.Id)
@@ -73,9 +88,14 @@ namespace Back.Controllers
             return NoContent();
         }
 
-        // POST: api/Categories
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// Crée une nouvelle catégorie.
+        /// </summary>
+        /// <param name="category">Les données de la catégorie.</param>
+        /// <returns>La catégorie créée.</returns>
         [HttpPost]
+        [ProducesResponseType(typeof(Category), 201)]
+        [ProducesResponseType(400)]
         public async Task<ActionResult<Category>> PostCategory(Category category)
         {
             _context.Categories.Add(category);
@@ -84,8 +104,14 @@ namespace Back.Controllers
             return CreatedAtAction("GetCategory", new { id = category.Id }, category);
         }
 
-        // DELETE: api/Categories/5
+        /// <summary>
+        /// Supprime une catégorie existante.
+        /// </summary>
+        /// <param name="id">L'identifiant de la catégorie.</param>
+        /// <returns>Aucune donnée si réussi.</returns>
         [HttpDelete("{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> DeleteCategory(int id)
         {
             var category = await _context.Categories.FindAsync(id);

@@ -10,6 +10,9 @@ using System.Text;
 
 namespace Back.Controllers
 {
+    /// <summary>
+    /// API pour gérer l'authentification.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
@@ -23,7 +26,12 @@ namespace Back.Controllers
             _configuration = configuration;
         }
 
-        // POST: api/Auth/register
+        /// <summary>
+        /// Enregistre un nouvel utilisateur.
+        /// </summary>
+        /// <param name="user">Les informations de l'utilisateur à enregistrer</param>
+        /// <returns>Utilisateur enregistré</returns>
+        /// <response code="400">Le nom d'utilisateur existe déjà</response>
         [HttpPost("register")]
         public async Task<ActionResult<User>> Register(User user)
         {
@@ -42,7 +50,12 @@ namespace Back.Controllers
             return Ok(user);
         }
 
-        // POST: api/Auth/login
+        /// <summary>
+        /// Connecte un utilisateur et génère un JWT.
+        /// </summary>
+        /// <param name="user">Les informations de connexion de l'utilisateur</param>
+        /// <returns>Token JWT si l'utilisateur est authentifié avec succès</returns>
+        /// <response code="400">Tentative de connexion invalide (mauvais identifiants)</response>
         [HttpPost("login")]
         public async Task<ActionResult<object>> Login(User user)
         {
@@ -65,7 +78,10 @@ namespace Back.Controllers
             return Ok(new { token });
         }
 
-        // POST: api/Auth/logout
+        /// <summary>
+        /// Déconnecte l'utilisateur (pas de gestion de session nécessaire avec JWT).
+        /// </summary>
+        /// <returns>Réponse OK si la déconnexion est réussie</returns>
         [HttpPost("logout")]
         public IActionResult Logout()
         {
@@ -73,13 +89,18 @@ namespace Back.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Génère un token JWT pour un utilisateur authentifié.
+        /// </summary>
+        /// <param name="user">Utilisateur pour lequel le token JWT sera généré</param>
+        /// <returns>Le token JWT généré</returns>
         private string GenerateJwtToken(User user)
         {
             var claims = new List<Claim>
-        {
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new Claim(ClaimTypes.Name, user.Username),
-        };
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.Username),
+            };
 
             // Utilisation de la clé secrète depuis la configuration
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:SecretKey"]));

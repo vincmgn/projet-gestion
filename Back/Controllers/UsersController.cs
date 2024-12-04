@@ -3,10 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Backend.Data;
 using Back.Models;
-
+using System.Security.Claims;
 
 namespace Back.Controllers
 {
+    /// <summary>
+    /// API pour gérer les utilisateurs.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -18,25 +21,32 @@ namespace Back.Controllers
             _context = context;
         }
 
-        // GET: api/Users
+        /// <summary>
+        /// Récupère tous les utilisateurs
+        /// </summary>
+        /// <returns>Liste des utilisateurs</returns>
         [HttpGet]
-        [Authorize]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
             return await _context.Users.ToListAsync();
         }
 
-        // GET: api/Users/5
+        /// <summary>
+        /// Récupère un utilisateur par son ID
+        /// </summary>
+        /// <param name="id">ID de l'utilisateur à récupérer</param>
+        /// <returns>L'utilisateur correspondant à l'ID</returns>
+        /// <response code="404">Utilisateur non trouvé</response>
+        /// <response code="401">Non autorisé à accéder aux données d'un autre utilisateur</response>
         [HttpGet("{id}")]
-        [Authorize]
         public async Task<ActionResult<User>> GetUser(int id)
         {
-            var userId = int.Parse(User.Identity.Name);  // Assuming the user ID is stored as the 'Name' claim in JWT
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
 
-            // Verify the user is trying to access their own data
+            // Vérifie que l'utilisateur essaie d'accéder à ses propres données
             if (id != userId)
             {
-                return Unauthorized();  // Not authorized to access another user's data
+                return Unauthorized();  // Non autorisé à accéder aux données d'un autre utilisateur
             }
 
             var user = await _context.Users.FindAsync(id);
@@ -49,13 +59,21 @@ namespace Back.Controllers
             return user;
         }
 
-        // PUT: api/Users/5
+        /// <summary>
+        /// Met à jour un utilisateur
+        /// </summary>
+        /// <param name="id">ID de l'utilisateur à mettre à jour</param>
+        /// <param name="user">Les nouvelles données de l'utilisateur</param>
+        /// <returns>Résultat de la mise à jour</returns>
+        /// <response code="400">ID non valide ou données incorrectes</response>
+        /// <response code="404">Utilisateur non trouvé</response>
+        /// <response code="401">Non autorisé à modifier un autre utilisateur</response>
         [HttpPut("{id}")]
-        [Authorize]
         public async Task<IActionResult> PutUser(int id, User user)
         {
-            var userId = int.Parse(User.Identity.Name);
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
 
+            // Vérifie que l'utilisateur ne modifie pas les données d'un autre utilisateur
             if (id != userId)
             {
                 return Unauthorized();
@@ -82,16 +100,21 @@ namespace Back.Controllers
             return NoContent();
         }
 
-        // POST: api/Users
+        /// <summary>
+        /// Crée un nouvel utilisateur
+        /// </summary>
+        /// <param name="user">Les données de l'utilisateur à créer</param>
+        /// <returns>L'utilisateur créé</returns>
+        /// <response code="400">Données invalides</response>
+        /// <response code="401">Non autorisé à créer un utilisateur pour un autre</response>
         [HttpPost]
-        [Authorize]
         public async Task<ActionResult<User>> PostUser(User user)
         {
-            var userId = int.Parse(User.Identity.Name);
-
-            if (user.Id != userId)
+            // Vérifie si l'utilisateur a un rôle d'admin avant de créer un nouvel utilisateur
+            var roleClaim = User.FindFirst(ClaimTypes.Role);
+            if (roleClaim == null || roleClaim.Value != "Admin")
             {
-                return Unauthorized();
+                return Unauthorized("Only admins can create users.");
             }
 
             _context.Users.Add(user);
@@ -100,16 +123,21 @@ namespace Back.Controllers
             return CreatedAtAction("GetUser", new { id = user.Id }, user);
         }
 
-        // DELETE: api/Users/5
+        /// <summary>
+        /// Supprime un utilisateur par son ID
+        /// </summary>
+        /// <param name="id">ID de l'utilisateur à supprimer</param>
+        /// <returns>Résultat de la suppression</returns>
+        /// <response code="404">Utilisateur non trouvé</response>
+        /// <response code="401">Non autorisé à supprimer un autre utilisateur</response>
         [HttpDelete("{id}")]
-        [Authorize]
         public async Task<IActionResult> DeleteUser(int id)
         {
-            var userId = int.Parse(User.Identity.Name);
-
-            if (id != userId)
+            // Vérifie si l'utilisateur a un rôle d'admin avant de supprimer un utilisateur
+            var roleClaim = User.FindFirst(ClaimTypes.Role);
+            if (roleClaim == null || roleClaim.Value != "Admin")
             {
-                return Unauthorized();
+                return Unauthorized("Only admins can delete users.");
             }
 
             var user = await _context.Users.FindAsync(id);

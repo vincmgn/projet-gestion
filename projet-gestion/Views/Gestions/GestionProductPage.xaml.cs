@@ -1,4 +1,4 @@
-﻿using projet_gestion.ModelViews;
+﻿using projet_gestion.ViewModels;
 using System.Windows.Controls;
 
 namespace projet_gestion.Views.Gestions

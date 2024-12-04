@@ -12,6 +12,7 @@ namespace Back.Models
         public int? CategoryId { get; set; }
         public string Emplacement { get; set; }
 
+        // Navigation property
         [JsonIgnore]
         public Category? Category { get; set; }
     }

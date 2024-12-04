@@ -1,30 +1,78 @@
 ﻿<Page x:Class="projet_gestion.Views.Gestions.GestionOrdersPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:fa="http://schemas.fontawesome.io/icons/"    
       Title="Commandes">
     <Grid Background="#fafafa">
-        <!-- Fond gris clair pour une apparence épurée -->
         <StackPanel Margin="20">
             <TextBlock Text="Commandes" FontSize="28" FontWeight="Bold" Margin="0,0,0,20" Foreground="#FFC107"/>
 
-            <DataGrid Name="OrdersDataGrid" AutoGenerateColumns="False" IsReadOnly="True" Height="400"
+            <DataGrid Name="OrdersDataGrid" 
+                      AutoGenerateColumns="False" 
+                      IsReadOnly="True" 
+                      Height="400"
                       Background="#ffffff"
-                      BorderBrush="#FFC107" BorderThickness="1"
-                      RowBackground="#FFF8E1" AlternatingRowBackground="#FFECB3">
+                      BorderBrush="#FFC107" 
+                      BorderThickness="1"
+                      RowBackground="#FFF8E1" 
+                      AlternatingRowBackground="#FFECB3"
+                      ItemsSource="{Binding Orders}">
+
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
-                    <DataGridTextColumn Header="Client ID" Binding="{Binding ClientId}" Width="2*"/>
-                    <DataGridTextColumn Header="Produit ID" Binding="{Binding ProductId}" Width="2*"/>
+                    <DataGridTextColumn Header="Client" Binding="{Binding Client.Name}" Width="2*"/>
+                    <DataGridTextColumn Header="Produit" Binding="{Binding Product.Name}" Width="2*"/>
                     <DataGridTextColumn Header="Quantité" Binding="{Binding Quantity}" Width="2*"/>
-                    <DataGridTextColumn Header="Date de commande" Binding="{Binding DateCommande}" Width="3*"/>
+                    <DataGridTextColumn Header="Date de commande" 
+                                        Binding="{Binding DateCommande, StringFormat=\{0:dd/MM/yyyy\}}" 
+                                        Width="3*"/>                    
                     <DataGridTextColumn Header="Statut" Binding="{Binding Statut}" Width="2*"/>
+                    <DataGridTemplateColumn Header="Actions" Width="70">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <!-- Bouton de modification -->
+                                    <Button Width="25" Height="25" Margin="5" 
+                                            Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                            CommandParameter="{Binding}"
+                                            HorizontalContentAlignment="Center" 
+                                            VerticalContentAlignment="Center"
+                                            Cursor="Hand"
+                                            Background="#5136ce" 
+                                            Foreground="White" 
+                                            BorderBrush="#2000b5"
+                                            BorderThickness="2" >
+                                        <Button.Content>
+                                            <fa:FontAwesome Icon="Edit"/>
+                                        </Button.Content>
+                                    </Button>
+
+                                    <!-- Bouton de suppression -->
+                                    <Button Width="25" Height="25" Margin="5" 
+                                            Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                            CommandParameter="{Binding}"
+                                            HorizontalContentAlignment="Center" 
+                                            VerticalContentAlignment="Center"
+                                            Cursor="Hand"
+                                            Background="#ce5136" 
+                                            Foreground="White" 
+                                            BorderBrush="#b52000" 
+                                            BorderThickness="2" >
+                                        <Button.Content>
+                                            <fa:FontAwesome Icon="Remove"/>
+                                        </Button.Content>
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
 
             <Button Content="Ajouter une commande" Width="150" Margin="0,20,0,0" HorizontalAlignment="Left"
                     Background="#FFC107" Foreground="White" FontWeight="Bold"
                     BorderBrush="#FFA000" BorderThickness="2"
-                    Padding="10,5" Cursor="Hand" Click="AddOrderButton_Click"/>
+                    Padding="10,5" Cursor="Hand" Command="{Binding AddOrderCommand}"/>
 
         </StackPanel>
     </Grid>

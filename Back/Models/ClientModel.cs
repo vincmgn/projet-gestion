@@ -9,8 +9,8 @@ namespace Back.Models
         public string Address { get; set; }
         public string Siret { get; set; }
 
-        // Navigation property (pour accéder aux commandes de ce client)
+        // Navigation property
         [JsonIgnore]
-        public List<Order> Orders { get; set; }  // Relation un-à-plusieurs avec Order
+        public List<Order> Orders { get; set; } = new List<Order>();
     }
 }

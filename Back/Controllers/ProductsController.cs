@@ -10,6 +10,9 @@ using Backend.Data;
 
 namespace Back.Controllers
 {
+    /// <summary>
+    /// API pour gérer les produits.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class ProductsController : ControllerBase
@@ -21,14 +24,22 @@ namespace Back.Controllers
             _context = context;
         }
 
-        // GET: api/Products
+        /// <summary>
+        /// Récupère tous les produits
+        /// </summary>
+        /// <returns>Liste des produits</returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
             return await _context.Products.ToListAsync();
         }
 
-        // GET: api/Products/5
+        /// <summary>
+        /// Récupère un produit par son ID
+        /// </summary>
+        /// <param name="id">ID du produit à récupérer</param>
+        /// <returns>Le produit correspondant à l'ID</returns>
+        /// <response code="404">Produit non trouvé</response>
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
@@ -42,8 +53,14 @@ namespace Back.Controllers
             return product;
         }
 
-        // PUT: api/Products/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// Met à jour un produit existant
+        /// </summary>
+        /// <param name="id">ID du produit à mettre à jour</param>
+        /// <param name="product">Le produit à mettre à jour</param>
+        /// <returns>Résultat de la mise à jour</returns>
+        /// <response code="400">ID non valide ou données incorrectes</response>
+        /// <response code="404">Produit non trouvé</response>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProduct(int id, Product product)
         {
@@ -73,18 +90,23 @@ namespace Back.Controllers
             return NoContent();
         }
 
-        // POST: api/Products
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// Crée un nouveau produit
+        /// </summary>
+        /// <param name="product">Le produit à créer</param>
+        /// <returns>Le produit créé</returns>
+        /// <response code="400">Données invalides, catégorie non trouvée</response>
         [HttpPost]
         public async Task<ActionResult<Product>> PostProduct(Product product)
         {
-            if(product.CategoryId == null)
+            // Vérifie si l'ID de la catégorie est valide
+            if (product.CategoryId == null)
             {
                 return BadRequest("L'ID de la catégorie est obligatoire.");
             }
 
             var category = await _context.Categories.FindAsync(product.CategoryId);
-            if(category == null)
+            if (category == null)
             {
                 return BadRequest("La catégorie spécifiée n'existe pas.");
             }
@@ -95,7 +117,12 @@ namespace Back.Controllers
             return CreatedAtAction("GetProduct", new { id = product.Id }, product);
         }
 
-        // DELETE: api/Products/5
+        /// <summary>
+        /// Supprime un produit par son ID
+        /// </summary>
+        /// <param name="id">ID du produit à supprimer</param>
+        /// <returns>Résultat de la suppression</returns>
+        /// <response code="404">Produit non trouvé</response>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProduct(int id)
         {

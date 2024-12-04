@@ -10,6 +10,9 @@ using Back.Models;
 
 namespace Back.Controllers
 {
+    /// <summary>
+    /// API pour gérer les commandes.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class OrdersController : ControllerBase
@@ -21,14 +24,22 @@ namespace Back.Controllers
             _context = context;
         }
 
-        // GET: api/Orders
+        /// <summary>
+        /// Récupère toutes les commandes
+        /// </summary>
+        /// <returns>Liste des commandes</returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
         {
             return await _context.Orders.ToListAsync();
         }
 
-        // GET: api/Orders/5
+        /// <summary>
+        /// Récupère une commande par son ID
+        /// </summary>
+        /// <param name="id">ID de la commande à récupérer</param>
+        /// <returns>La commande correspondant à l'ID</returns>
+        /// <response code="404">Commande non trouvée</response>
         [HttpGet("{id}")]
         public async Task<ActionResult<Order>> GetOrder(int id)
         {
@@ -42,8 +53,14 @@ namespace Back.Controllers
             return order;
         }
 
-        // PUT: api/Orders/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// Met à jour une commande
+        /// </summary>
+        /// <param name="id">ID de la commande à mettre à jour</param>
+        /// <param name="order">Les nouvelles données de la commande</param>
+        /// <returns>Résultat de la mise à jour</returns>
+        /// <response code="400">ID non valide ou données incorrectes</response>
+        /// <response code="404">Commande non trouvée</response>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutOrder(int id, Order order)
         {
@@ -73,8 +90,12 @@ namespace Back.Controllers
             return NoContent();
         }
 
-        // POST: api/Orders
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// Crée une nouvelle commande
+        /// </summary>
+        /// <param name="order">La commande à créer</param>
+        /// <returns>La commande créée</returns>
+        /// <response code="400">Données invalides</response>
         [HttpPost]
         public async Task<ActionResult<Order>> PostOrder(Order order)
         {
@@ -84,7 +105,12 @@ namespace Back.Controllers
             return CreatedAtAction("GetOrder", new { id = order.Id }, order);
         }
 
-        // DELETE: api/Orders/5
+        /// <summary>
+        /// Supprime une commande par son ID
+        /// </summary>
+        /// <param name="id">ID de la commande à supprimer</param>
+        /// <returns>Résultat de la suppression</returns>
+        /// <response code="404">Commande non trouvée</response>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteOrder(int id)
         {

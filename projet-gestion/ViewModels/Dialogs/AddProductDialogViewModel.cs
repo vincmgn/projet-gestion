@@ -1,10 +1,7 @@
 ﻿using Back.Models;
-using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 

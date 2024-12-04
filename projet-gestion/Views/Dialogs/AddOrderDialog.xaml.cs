@@ -1,5 +1,7 @@
-﻿using System;
+﻿using projet_gestion.ViewModels.Dialogs;
+using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace projet_gestion.Views.Dialogs
 {
@@ -8,20 +10,25 @@ namespace projet_gestion.Views.Dialogs
         public AddOrderDialog()
         {
             InitializeComponent();
+            DataContext = new AddOrderDialogViewModel();
         }
 
-        private void Add_Click(object sender, RoutedEventArgs e)
+        // Gestionnaire d'événements pour SelectionChanged
+        private void OnStatusSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Code pour ajouter la commande (à implémenter selon la logique de votre application)
+            if (sender is ComboBox comboBox && comboBox.SelectedItem is ComboBoxItem selectedItem)
+            {
+                // Récupérer uniquement le contenu texte de l'élément sélectionné (pas l'objet ComboBoxItem)
+                var selectedStatus = selectedItem.Content.ToString();
 
-            // Affichage d'un message temporaire
-            MessageBox.Show("Commande ajoutée avec succès !");
-            this.DialogResult = true; // Ferme la boîte de dialogue avec succès
+                // Mettre à jour la propriété OrderStatus dans le ViewModel
+                var viewModel = DataContext as AddOrderDialogViewModel;
+                if (viewModel != null)
+                {
+                    viewModel.OrderStatus = selectedStatus;
+                }
+            }
         }
 
-        private void Cancel_Click(object sender, RoutedEventArgs e)
-        {
-            this.DialogResult = false; // Ferme la boîte de dialogue sans effectuer de modifications
-        }
     }
 }

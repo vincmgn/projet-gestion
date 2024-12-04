@@ -1,19 +1,13 @@
-﻿using projet_gestion.ViewModels;
-using Back.Models;
-using System;
-using System.Collections.Generic;
+﻿using Back.Models;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Net.Http.Json;
 using System.Windows;
 using projet_gestion.Views.Dialogs;
 using projet_gestion.ViewModels.Dialogs;
 
-namespace projet_gestion.ModelViews
+namespace projet_gestion.ViewModels
 {
     internal class GestionProductsViewModel : BaseViewModel
     {
@@ -27,7 +21,7 @@ namespace projet_gestion.ModelViews
         {
             _httpClient = new HttpClient();
             Products = new ObservableCollection<Product>();
-            AddProductCommand = new RelayCommand(param => OpenAddProductDialog(null));
+            AddProductCommand = new RelayCommand(param => OpenAddProductDialog());
             EditCommand = new RelayCommand(EditProductAsync);
             DeleteCommand = new RelayCommand(DeleteProduct);
 
@@ -66,7 +60,7 @@ namespace projet_gestion.ModelViews
             }
         }
 
-        private void OpenAddProductDialog(object parameter)
+        private void OpenAddProductDialog()
         {
             var dialog = new AddProductDialog();
             var dialogViewModel = new AddProductDialogViewModel();

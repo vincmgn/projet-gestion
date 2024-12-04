@@ -14,8 +14,8 @@ namespace Back.Models
 
         // Navigation properties
         [JsonIgnore]
-        public Client Client { get; set; }  // Relation avec Client
+        public Client? Client { get; set; }  // Relation avec Client
         [JsonIgnore]
-        public Product Product { get; set; }  // Relation avec Product
+        public Product? Product { get; set; }  // Relation avec Product
     }
 }
