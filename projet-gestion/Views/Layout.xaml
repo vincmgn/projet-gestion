@@ -4,19 +4,77 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:projet_gestion.Views"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"    
         mc:Ignorable="d"
         Title="Dashboard" Height="600" Width="1200">
     <Grid>
         <!-- Sidebar Navigation -->
         <StackPanel Background="#333" Width="200" HorizontalAlignment="Left">
             <!-- Button Style -->
-            <Button Content="Dashboard" HorizontalAlignment="Stretch" Margin="0,20,0,20" Height="40" Click="NavigateButton_Click" Tag="Dashboard" Background="#4A90E2" Foreground="White" BorderBrush="Transparent" FontWeight="Bold" Cursor="Hand"/>
-            <Button Content="Produits" HorizontalAlignment="Stretch" Margin="0,0,0,10" Height="40" Click="NavigateButton_Click" Tag="Products" Background="#3f51b5" Foreground="White" BorderBrush="Transparent" FontWeight="Bold" Cursor="Hand"/>
-            <Button Content="Catégories" HorizontalAlignment="Stretch" Margin="0,0,0,10" Height="40" Click="NavigateButton_Click" Tag="Categories" Background="#4A90E2" Foreground="White" BorderBrush="Transparent" FontWeight="Bold" Cursor="Hand"/>
-            <Button Content="Clients" HorizontalAlignment="Stretch" Margin="0,0,0,10" Height="40" Click="NavigateButton_Click" Tag="Clients" Background="#388e3c" Foreground="White" BorderBrush="Transparent" FontWeight="Bold" Cursor="Hand"/>
-            <Button Content="Orders" HorizontalAlignment="Stretch" Margin="0,0,0,10" Height="40" Click="NavigateButton_Click" Tag="Orders" Background="#FFC107" Foreground="White" BorderBrush="Transparent" FontWeight="Bold" Cursor="Hand"/>
+            <Button HorizontalAlignment="Stretch" Margin="0,20,0,20" Height="40" Click="NavigateButton_Click" 
+                    Tag="Dashboard" Background="#4A90E2" Foreground="White" BorderBrush="Transparent" 
+                    FontWeight="Bold" Cursor="Hand">
+                <Button.Content>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <!-- Icône -->
+                            <ColumnDefinition Width="*"/>
+                            <!-- Texte -->
+                        </Grid.ColumnDefinitions>
+                        <!-- Icône -->
+                        <fa:FontAwesome Icon="Home" Width="20" Height="20" Grid.Column="0" Margin="0,10,10,0" VerticalAlignment="Top"/>
+                        <!-- Texte -->
+                        <TextBlock Text="Dashboard" Grid.Column="1" VerticalAlignment="Center"/>
+                    </Grid>
+                </Button.Content>
+            </Button>
 
-            <Button Content="Déconnexion" HorizontalAlignment="Stretch" Margin="0,10,0,10" Height="40" Click="NavigateButton_Click" Tag="Deconnection" Background="#E74C3C" Foreground="White" BorderBrush="Transparent" FontWeight="Bold" Cursor="Hand"/>
+            <Button HorizontalAlignment="Stretch" Margin="0,0,0,10" Height="40" Click="NavigateButton_Click" 
+            Tag="Products" Background="#3f51b5" Foreground="White" BorderBrush="Transparent" FontWeight="Bold" Cursor="Hand">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <fa:FontAwesome Icon="Cube" Width="20" Height="20" Margin="0,10,10,0" />
+                        <TextBlock Text="Produits" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button HorizontalAlignment="Stretch" Margin="0,0,0,10" Height="40" Click="NavigateButton_Click" 
+            Tag="Categories" Background="#4A90E2" Foreground="White" BorderBrush="Transparent" FontWeight="Bold" Cursor="Hand">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <fa:FontAwesome Icon="Tags" Width="20" Height="20" Margin="0,10,10,0" />
+                        <TextBlock Text="Catégories" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button HorizontalAlignment="Stretch" Margin="0,0,0,10" Height="40" Click="NavigateButton_Click" 
+            Tag="Clients" Background="#388e3c" Foreground="White" BorderBrush="Transparent" FontWeight="Bold" Cursor="Hand">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <fa:FontAwesome Icon="Users" Width="20" Height="20" Margin="0,10,10,0" />
+                        <TextBlock Text="Clients" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button HorizontalAlignment="Stretch" Margin="0,0,0,10" Height="40" Click="NavigateButton_Click" 
+            Tag="Orders" Background="#FFC107" Foreground="White" BorderBrush="Transparent" FontWeight="Bold" Cursor="Hand">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <fa:FontAwesome Icon="ShoppingCart" Width="20" Height="20" Margin="0,10,10,0" />
+                        <TextBlock Text="Orders" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button HorizontalAlignment="Stretch" Margin="0,10,0,10" Height="40" Click="NavigateButton_Click" 
+            Tag="Deconnection" Background="#E74C3C" Foreground="White" BorderBrush="Transparent" FontWeight="Bold" Cursor="Hand">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <fa:FontAwesome Icon="SignOut" Width="20" Height="20" Margin="0,10,10,0" />
+                        <TextBlock Text="Déconnexion" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button.Content>
+            </Button>
         </StackPanel>
 
         <!-- Content Frame to display pages -->

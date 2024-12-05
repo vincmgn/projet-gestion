@@ -130,5 +130,103 @@ namespace Back.Controllers
         {
             return _context.Orders.Any(e => e.Id == id);
         }
+
+        /// <summary>
+        /// Récupère le produit le plus vendu
+        /// </summary>
+        /// <returns>Le produit le plus vendu</returns>
+        /// <response code="404">Aucune commande trouvée</response>
+        /// <response code="200">Produit le plus vendu</response>
+        [HttpGet("bestseller")]
+        public async Task<ActionResult<object>> GetBestSeller()
+        {
+            var bestSeller = await _context.Orders
+                .GroupBy(o => o.ProductId)
+                .Select(g => new
+                {
+                    ProductId = g.Key,
+                    Quantity = g.Sum(o => o.Quantity)
+                })
+                .OrderByDescending(g => g.Quantity)
+                .FirstOrDefaultAsync();
+
+            if (bestSeller == null)
+            {
+                return NotFound();
+            }
+
+            var product = await _context.Products.FindAsync(bestSeller.ProductId);
+            return new
+            {
+                ProductId = bestSeller.ProductId,
+                ProductName = product.Name,
+                Quantity = bestSeller.Quantity
+            };
+        }
+
+        /// <summary>
+        /// Récupère le Top 3 des produits les plus vendus
+        /// </summary>
+        /// <returns>Top 3 des produits les plus vendus</returns>
+        /// <response code="404">Aucun produit trouvé dans le Top 3</response>
+        /// <response code="200">Top 3 des produits les plus vendus</response>
+        [HttpGet("top3")]
+        public async Task<ActionResult<IEnumerable<object>>> GetTop3()
+        {
+            try
+            {
+                // Jointure pour récupérer les informations produit et calculer les quantités totales
+                var top3 = await _context.Orders
+                    .GroupBy(o => o.ProductId)
+                    .Select(g => new
+                    {
+                        ProductId = g.Key,
+                        Quantity = g.Sum(o => o.Quantity)
+                    })
+                    .OrderByDescending(g => g.Quantity)
+                    .Take(3)
+                    .Join(_context.Products,  // Jointure avec la table des produits
+                          g => g.ProductId,
+                          p => p.Id,
+                          (g, p) => new
+                          {
+                              ProductId = g.ProductId,
+                              ProductName = p.Name,
+                              Quantity = g.Quantity
+                          })
+                    .ToListAsync();
+
+                if (!top3.Any())
+                {
+                    return NotFound(new { Message = "Aucun produit trouvé dans le Top 3." });
+                }
+
+                return Ok(top3);
+            }
+            catch (Exception ex)
+            {
+                // Gestion des erreurs génériques
+                return StatusCode(500, new { Message = "Erreur interne lors de la récupération du Top 3.", Details = ex.Message });
+            }
+        }
+
+
+
+        /// <summary>
+        /// Récupère le total des ventes
+        /// </summary>
+        /// <returns>Total des ventes</returns>
+        /// <response code="200">Total des ventes</response>
+        /// <response code="404">Aucune commande trouvée</response>
+        [HttpGet("total")]
+        public async Task<ActionResult<decimal>> GetTotalSales()
+        {
+            var totalSales = await _context.Orders
+                .Select(o => (double)(o.Quantity * o.Product.Price)) // Convert to double
+                .SumAsync();
+
+            return (decimal)totalSales; // Convert back to decimal if needed
+        }
+
     }
 }

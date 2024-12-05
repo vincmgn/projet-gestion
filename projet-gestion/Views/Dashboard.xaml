@@ -4,27 +4,32 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:projet_gestion.Views"
+      xmlns:fa="http://schemas.fontawesome.io/icons/"
+      xmlns:liveCharts="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="DashboardPage">
 
     <Grid Background="#f0f4f8">
-        <!-- Fond léger bleu/gris -->
         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="20,20,0,0">
-            <TextBlock Text="Produit Best Seller : " FontWeight="Bold" FontSize="16" Foreground="#3f51b5"/>
-            <TextBlock Text="{Binding BestSeller}" FontSize="16" Foreground="#4caf50" Margin="10,0,0,0"/>
+            <fa:FontAwesome Icon="Star" FontSize="20" Foreground="#419e16" Margin="0,0,3,0"/>
+            <TextBlock Text="Meilleure vente : " FontWeight="Bold" FontSize="16" Foreground="#3f51b5"/>
+            <TextBlock Text="{Binding BestSeller.ProductName}" FontSize="16" Foreground="#419e16" Margin="10,0,0,0"/>
+            <TextBlock Text=" (Quantité : " FontSize="16" Foreground="#3f51b5" Margin="5,0,0,0"/>
+            <TextBlock Text="{Binding BestSeller.Quantity}" FontSize="16" Foreground="#419e16"/>
+            <TextBlock Text=")" FontSize="16" Foreground="#3f51b5"/>
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="20,80,0,0">
-            <TextBlock Text="Montant Total des Ventes : " FontWeight="Bold" FontSize="16" Foreground="#3f51b5"/>
-            <TextBlock Text="{Binding TotalSales}" FontSize="16" Foreground="#2196f3" Margin="10,0,0,0"/>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="20,50,0,0">
+            <fa:FontAwesome Icon="Dollar" FontSize="20" Foreground="#e0e200" Margin="0,0,10,0"/>
+            <TextBlock Text="Montant total des ventes : " FontWeight="Bold" FontSize="16" Foreground="#3f51b5"/>
+            <TextBlock Text="{Binding TotalSales, StringFormat=C}" FontSize="16" Foreground="#e0e200" Margin="10,0,0,0"/>
         </StackPanel>
 
-        <Border HorizontalAlignment="Right" Width="300" Height="200" Margin="20"
-                BorderBrush="#3f51b5" BorderThickness="2" Background="White" CornerRadius="10">
-            <!-- Ajoutez ici le contenu pour le diagramme -->
-            <TextBlock Text="Diagramme à insérer" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#9e9e9e"/>
-        </Border>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="20,0,20,150">
+            <fa:FontAwesome Icon="Warning" Foreground="#d32f2f" Padding="6"/>
+            <TextBlock Text="Attention à ces produits : " FontWeight="Bold" FontSize="16" Foreground="#d32f2f"/>
+        </StackPanel>
 
         <ListBox ItemsSource="{Binding LowStockNotifications}" VerticalAlignment="Bottom" Height="120" Margin="20,0,20,20"
                  Background="#ffffff" BorderBrush="#3f51b5" BorderThickness="1">

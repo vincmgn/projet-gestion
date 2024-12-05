@@ -3,9 +3,6 @@
 
 namespace projet_gestion.Views
 {
-    /// <summary>
-    /// Logique d'interaction pour DashboardPage.xaml
-    /// </summary>
     public partial class Dashboard : Page
     {
         public Dashboard()

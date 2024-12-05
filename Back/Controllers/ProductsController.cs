@@ -142,5 +142,27 @@ namespace Back.Controllers
         {
             return _context.Products.Any(e => e.Id == id);
         }
+
+        /// <summary>
+        /// Récupère les produits dont la quantité est inférieure à 5 (stock faible)
+        /// </summary>
+        /// <returns>Liste des produits en stock faible</returns>
+        [HttpGet("lowstock")]
+        public async Task<ActionResult<IEnumerable<string>>> GetLowStockProducts()
+        {
+            // Requête pour récupérer les produits dont la quantité est inférieure à 5
+            var lowStockProducts = await _context.Products
+                .Where(p => p.Quantity < 5)  // Filtrer les produits avec un stock inférieur à 5
+                .Select(p => $"{p.Name} - Stock < 5")  // Vous pouvez choisir d'afficher plus d'informations si nécessaire
+                .ToListAsync();
+
+            // Si aucun produit en stock faible n'est trouvé, on retourne un message
+            if (!lowStockProducts.Any())
+            {
+                return NoContent();
+            }
+
+            return Ok(lowStockProducts);
+        }
     }
 }
