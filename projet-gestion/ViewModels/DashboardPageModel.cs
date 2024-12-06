@@ -15,8 +15,6 @@ namespace projet_gestion.ModelViews
         private decimal _totalSales;
         private Bestseller _bestSeller;
         private ObservableCollection<ColumnSeries> _top3ChartValues;
-
-        // Propriétés liées à l'UI
         public decimal TotalSales
         {
             get => _totalSales;
@@ -61,14 +59,12 @@ namespace projet_gestion.ModelViews
             Top3ChartValues = new ObservableCollection<ColumnSeries>();
             Labels = new ObservableCollection<string>();
 
-            // Chargement des données au démarrage
             _ = LoadLowStockNotifications();
             _ = LoadBestSeller();
             _ = LoadTotalSales();
             _ = LoadTop3Chart();
         }
 
-        // Méthode pour charger les notifications de stock faible
         private async Task LoadLowStockNotifications()
         {
             string apiUrl = "http://localhost:5042/api/products/lowstock";
@@ -83,7 +79,6 @@ namespace projet_gestion.ModelViews
                     notifications = new List<string> { "Aucune notification de stock bas." };
                 }
 
-                // Mise à jour de la collection dans le thread principal
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     LowStockNotifications.Clear();
@@ -99,7 +94,6 @@ namespace projet_gestion.ModelViews
             }
         }
 
-        // Méthode pour charger le meilleur vendeur
         private async Task LoadBestSeller()
         {
             string apiUrl = "http://localhost:5042/api/orders/bestseller";
@@ -118,7 +112,6 @@ namespace projet_gestion.ModelViews
             }
         }
 
-        // Méthode pour charger le total des ventes
         private async Task LoadTotalSales()
         {
             string apiUrl = "http://localhost:5042/api/orders/total";
@@ -137,7 +130,6 @@ namespace projet_gestion.ModelViews
             }
         }
 
-        // Méthode pour charger les top 3 produits avec : Wpf.CartesianChart.Basic_Bars
         private async Task LoadTop3Chart()
         {
             string apiUrl = "http://localhost:5042/api/orders/top3";
@@ -149,7 +141,6 @@ namespace projet_gestion.ModelViews
 
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    // Réinitialisation des données
                     SeriesCollection = new SeriesCollection
                     {
                         new ColumnSeries
@@ -168,7 +159,6 @@ namespace projet_gestion.ModelViews
 
                     Formatter = value => value.ToString("N");
 
-                    // Notification des changements
                     OnPropertyChanged(nameof(SeriesCollection));
                     OnPropertyChanged(nameof(Labels));
                 });
@@ -179,9 +169,6 @@ namespace projet_gestion.ModelViews
             }
         }
 
-
-
-        // Implémentation de l'interface INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -189,15 +176,12 @@ namespace projet_gestion.ModelViews
         }
     }
 
-    // Classe représentant un produit best-seller
     public class Bestseller
     {
         public int ProductId { get; set; }
         public string ProductName { get; set; }
         public int Quantity { get; set; }
     }
-
-    // Classe représentant un produit dans le Top 3
     public class TopProduct
     {
         public int ProductId { get; set; }

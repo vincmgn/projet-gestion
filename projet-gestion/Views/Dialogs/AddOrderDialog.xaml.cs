@@ -12,16 +12,12 @@ namespace projet_gestion.Views.Dialogs
             InitializeComponent();
             DataContext = new AddOrderDialogViewModel();
         }
-
-        // Gestionnaire d'événements pour SelectionChanged
         private void OnStatusSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (sender is ComboBox comboBox && comboBox.SelectedItem is ComboBoxItem selectedItem)
             {
-                // Récupérer uniquement le contenu texte de l'élément sélectionné (pas l'objet ComboBoxItem)
                 var selectedStatus = selectedItem.Content.ToString();
 
-                // Mettre à jour la propriété OrderStatus dans le ViewModel
                 var viewModel = DataContext as AddOrderDialogViewModel;
                 if (viewModel != null)
                 {

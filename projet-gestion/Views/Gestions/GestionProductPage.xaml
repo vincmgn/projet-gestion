@@ -33,7 +33,6 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <!-- Bouton de modification -->
                                     <Button Width="25" Height="25" Margin="5" 
                                             Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                             CommandParameter="{Binding}"
@@ -49,7 +48,6 @@
                                         </Button.Content>
                                     </Button>
 
-                                    <!-- Bouton de suppression -->
                                     <Button Width="25" Height="25" Margin="5" 
                                             Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                             CommandParameter="{Binding}"

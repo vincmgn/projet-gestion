@@ -70,8 +70,9 @@ namespace Backend.Data
 
             // Seed des données pour la table Orders
             modelBuilder.Entity<Order>().HasData(
-                new Order { Id = 1, ClientId = 1, ProductId = 1, Quantity = 2, DateCommande = DateTime.Now, Statut = "En cours" },
-                new Order { Id = 2, ClientId = 2, ProductId = 3, Quantity = 5, DateCommande = DateTime.Now, Statut = "Livrée" }
+                new Order { Id = 1, ClientId = 1, ProductId = 1, Quantity = 2, DateCommande = DateTime.Now, Statut = "En attente" },
+                new Order { Id = 2, ClientId = 2, ProductId = 3, Quantity = 5, DateCommande = DateTime.Now, Statut = "Livrée" },
+                new Order { Id = 3, ClientId = 1, ProductId = 2, Quantity = 1, DateCommande = DateTime.Now, Statut = "Expédiée" }
             );
 
             // Seed des données pour la table Users

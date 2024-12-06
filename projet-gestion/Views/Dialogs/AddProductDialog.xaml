@@ -33,12 +33,10 @@
             Height="30" Margin="0,0,0,10"/>
 
             <TextBlock Text="Catégorie :" FontSize="14" Margin="0,0,0,10"/>
-            <!-- ComboBox pour les catégories -->
             <ComboBox SelectedValue="{Binding ProductCategoryId, UpdateSourceTrigger=PropertyChanged}" 
                       SelectedValuePath="Id" 
                       DisplayMemberPath="Name"
                       Height="30" Margin="0,0,0,10">
-                <!-- Liaison dynamique des catégories -->
                 <ComboBox.ItemsSource>
                     <Binding Path="Categories" />
                 </ComboBox.ItemsSource>

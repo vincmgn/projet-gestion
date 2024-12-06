@@ -17,26 +17,17 @@ namespace projet_gestion.ViewModels.Dialogs
         private readonly HttpClient _httpClient;
         public ObservableCollection<Client> Clients { get; set; } = new ObservableCollection<Client>();
         public ObservableCollection<Product> Products { get; set; } = new ObservableCollection<Product>();
-        
-        // Propriétés
         public int? OrderId { get; set; }
         public int OrderQuantity { get; set; }
         public DateTime OrderDateCommande { get; set; } = DateTime.Now;
         public int? OrderClientId { get; set; } = null;
         public int? OrderProductId { get; set; } = null;
         public String? OrderStatus { get; set; } = null;
-
-        // Commandes
         public ICommand AddOrderCommand { get; }
         public ICommand CancelCommand { get; }
 
-        // Événements
         public event Action OnOrderAdded;
-
-        // Mode édition
         public bool IsEditMode => OrderId.HasValue;
-
-        // Titre et contenu du bouton dynamique
         public string DialogTitle => IsEditMode ? "Modifier une commande" : "Ajouter une commande";
         public string ActionButtonContent => IsEditMode ? "Modifier" : "Ajouter";
 
@@ -45,11 +36,9 @@ namespace projet_gestion.ViewModels.Dialogs
             _httpClient = new HttpClient();
             LoadClientsAndProductsAsync();
 
-            // Commandes
             AddOrderCommand = new RelayCommand(async param => await ExecuteAddOrEditOrderAsync());
             CancelCommand = new RelayCommand(ExecuteCancel);
 
-            // Mode édition : Initialiser les valeurs de la commande
             if (orderToEdit != null)
             {
                 OrderId = orderToEdit.Id;
@@ -86,7 +75,6 @@ namespace projet_gestion.ViewModels.Dialogs
 
         private async Task ExecuteAddOrEditOrderAsync()
         {
-            // Validations 
             if (OrderQuantity <= 0)
             {
                 MessageBox.Show("La quantité doit être supérieure à 0.");
@@ -109,8 +97,8 @@ namespace projet_gestion.ViewModels.Dialogs
             }
 
             string apiUrl = IsEditMode
-                ? $"http://localhost:5042/api/orders/{OrderId}"  // API pour modifier
-                : "http://localhost:5042/api/orders";               // API pour ajouter
+                ? $"http://localhost:5042/api/orders/{OrderId}"
+                : "http://localhost:5042/api/orders";
 
             try
             {

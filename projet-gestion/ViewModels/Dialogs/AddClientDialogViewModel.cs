@@ -11,7 +11,6 @@ namespace projet_gestion.ViewModels.Dialogs
     {
         private readonly HttpClient _httpClient;
 
-        // Propriétés existantes
         public int? ClientId { get; set; }
         public string ClientName { get; set; }
         public string ClientAddress { get; set; }
@@ -19,11 +18,7 @@ namespace projet_gestion.ViewModels.Dialogs
         public ICommand AddClientCommand { get; }
         public ICommand CancelCommand { get; }
         public event Action OnClientAdded;
-
-        // Nouvelle propriété pour gérer le mode
         public bool IsEditMode => ClientId.HasValue;
-
-        // Propriétés dynamiques pour le titre et le bouton
         public string DialogTitle => IsEditMode ? "Modifier un client" : "Ajouter un client";
         public string ActionButtonContent => IsEditMode ? "Modifier" : "Ajouter";
 
@@ -43,8 +38,8 @@ namespace projet_gestion.ViewModels.Dialogs
             }
 
             string apiUrl = IsEditMode
-                ? $"http://localhost:5042/api/Clients/{ClientId}"  // API pour modifier
-                : "http://localhost:5042/api/Clients";               // API pour ajouter
+                ? $"http://localhost:5042/api/Clients/{ClientId}"
+                : "http://localhost:5042/api/Clients";
 
             try
             {
@@ -62,13 +57,11 @@ namespace projet_gestion.ViewModels.Dialogs
                         Orders = new List<Order>()
                     };
 
-                    // Vous pouvez ici ajouter une logique pour récupérer les commandes actuelles
-                    // Exemple : récupérez-les via l'API ou récupérez-les localement avant de faire la modification
                     var existingClient = await _httpClient.GetFromJsonAsync<Client>($"http://localhost:5042/api/Clients/{ClientId}");
 
                     if (existingClient != null && existingClient.Orders != null)
                     {
-                        updatedClient.Orders = existingClient.Orders; // Conserver les commandes existantes
+                        updatedClient.Orders = existingClient.Orders;
                     }
 
                     response = await _httpClient.PutAsJsonAsync(apiUrl, updatedClient);
