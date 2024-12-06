@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Back.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241206152430_InitialCreate")]
+    [Migration("20241206155707_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -126,7 +126,7 @@ namespace Back.Migrations
                         {
                             Id = 1,
                             ClientId = 1,
-                            DateCommande = new DateTime(2024, 12, 6, 16, 24, 30, 189, DateTimeKind.Local).AddTicks(4797),
+                            DateCommande = new DateTime(2024, 12, 6, 16, 57, 7, 502, DateTimeKind.Local).AddTicks(9164),
                             ProductId = 1,
                             Quantity = 2,
                             Statut = "En cours"
@@ -135,7 +135,7 @@ namespace Back.Migrations
                         {
                             Id = 2,
                             ClientId = 2,
-                            DateCommande = new DateTime(2024, 12, 6, 16, 24, 30, 189, DateTimeKind.Local).AddTicks(4800),
+                            DateCommande = new DateTime(2024, 12, 6, 16, 57, 7, 502, DateTimeKind.Local).AddTicks(9166),
                             ProductId = 3,
                             Quantity = 5,
                             Statut = "Livrée"
@@ -180,7 +180,7 @@ namespace Back.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
-                            DatePeremption = new DateTime(2026, 12, 6, 16, 24, 30, 189, DateTimeKind.Local).AddTicks(4707),
+                            DatePeremption = new DateTime(2026, 12, 6, 16, 57, 7, 502, DateTimeKind.Local).AddTicks(9079),
                             Emplacement = "A1",
                             Name = "Laptop",
                             Price = 1000m,
@@ -190,7 +190,7 @@ namespace Back.Migrations
                         {
                             Id = 2,
                             CategoryId = 2,
-                            DatePeremption = new DateTime(2029, 12, 6, 16, 24, 30, 189, DateTimeKind.Local).AddTicks(4766),
+                            DatePeremption = new DateTime(2029, 12, 6, 16, 57, 7, 502, DateTimeKind.Local).AddTicks(9129),
                             Emplacement = "B2",
                             Name = "Chair",
                             Price = 150m,
@@ -200,7 +200,7 @@ namespace Back.Migrations
                         {
                             Id = 3,
                             CategoryId = 3,
-                            DatePeremption = new DateTime(2025, 12, 6, 16, 24, 30, 189, DateTimeKind.Local).AddTicks(4769),
+                            DatePeremption = new DateTime(2025, 12, 6, 16, 57, 7, 502, DateTimeKind.Local).AddTicks(9132),
                             Emplacement = "C3",
                             Name = "T-shirt",
                             Price = 20m,
@@ -231,7 +231,7 @@ namespace Back.Migrations
                         new
                         {
                             Id = 1,
-                            Password = "admin",
+                            Password = "AQAAAAIAAYagAAAAEMddtygHfAhT1DOwpU50Podlt4EqpI9X7arkj4llHs3E29dzYpvzLXqRtIuXVYcxZg==",
                             Username = "admin"
                         });
                 });
