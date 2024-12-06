@@ -48,5 +48,6 @@ dotnet ef database update
 ```
 
 4. Run the application:
-   ![alt text](image.png)
-   Click on the "Démarrer" button in Visual Studio.
+
+![alt text](image.png)
+Click on the "Démarrer" button in Visual Studio.
