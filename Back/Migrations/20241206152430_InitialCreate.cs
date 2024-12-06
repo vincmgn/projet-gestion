@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Back.Migrations
 {
     /// <inheritdoc />
@@ -104,6 +106,49 @@ namespace Back.Migrations
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Electronics" },
+                    { 2, "Furniture" },
+                    { 3, "Clothing" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Clients",
+                columns: new[] { "Id", "Address", "Name", "Siret" },
+                values: new object[,]
+                {
+                    { 1, "123 Main St", "Client1", "1234567890" },
+                    { 2, "456 Market Rd", "Client2", "0987654321" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "Password", "Username" },
+                values: new object[] { 1, "admin", "admin" });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "Id", "CategoryId", "DatePeremption", "Emplacement", "Name", "Price", "Quantity" },
+                values: new object[,]
+                {
+                    { 1, 1, new DateTime(2026, 12, 6, 16, 24, 30, 189, DateTimeKind.Local).AddTicks(4707), "A1", "Laptop", 1000m, 10 },
+                    { 2, 2, new DateTime(2029, 12, 6, 16, 24, 30, 189, DateTimeKind.Local).AddTicks(4766), "B2", "Chair", 150m, 25 },
+                    { 3, 3, new DateTime(2025, 12, 6, 16, 24, 30, 189, DateTimeKind.Local).AddTicks(4769), "C3", "T-shirt", 20m, 50 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Orders",
+                columns: new[] { "Id", "ClientId", "DateCommande", "ProductId", "Quantity", "Statut" },
+                values: new object[,]
+                {
+                    { 1, 1, new DateTime(2024, 12, 6, 16, 24, 30, 189, DateTimeKind.Local).AddTicks(4797), 1, 2, "En cours" },
+                    { 2, 2, new DateTime(2024, 12, 6, 16, 24, 30, 189, DateTimeKind.Local).AddTicks(4800), 3, 5, "Livrée" }
                 });
 
             migrationBuilder.CreateIndex(

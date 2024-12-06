@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Back.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241205093221_InitialCreate")]
+    [Migration("20241206152430_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -33,6 +33,23 @@ namespace Back.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Electronics"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Furniture"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Clothing"
+                        });
                 });
 
             modelBuilder.Entity("Back.Models.Client", b =>
@@ -56,6 +73,22 @@ namespace Back.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Clients");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "123 Main St",
+                            Name = "Client1",
+                            Siret = "1234567890"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "456 Market Rd",
+                            Name = "Client2",
+                            Siret = "0987654321"
+                        });
                 });
 
             modelBuilder.Entity("Back.Models.Order", b =>
@@ -87,6 +120,26 @@ namespace Back.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("Orders");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ClientId = 1,
+                            DateCommande = new DateTime(2024, 12, 6, 16, 24, 30, 189, DateTimeKind.Local).AddTicks(4797),
+                            ProductId = 1,
+                            Quantity = 2,
+                            Statut = "En cours"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ClientId = 2,
+                            DateCommande = new DateTime(2024, 12, 6, 16, 24, 30, 189, DateTimeKind.Local).AddTicks(4800),
+                            ProductId = 3,
+                            Quantity = 5,
+                            Statut = "Livrée"
+                        });
                 });
 
             modelBuilder.Entity("Back.Models.Product", b =>
@@ -121,6 +174,38 @@ namespace Back.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CategoryId = 1,
+                            DatePeremption = new DateTime(2026, 12, 6, 16, 24, 30, 189, DateTimeKind.Local).AddTicks(4707),
+                            Emplacement = "A1",
+                            Name = "Laptop",
+                            Price = 1000m,
+                            Quantity = 10
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CategoryId = 2,
+                            DatePeremption = new DateTime(2029, 12, 6, 16, 24, 30, 189, DateTimeKind.Local).AddTicks(4766),
+                            Emplacement = "B2",
+                            Name = "Chair",
+                            Price = 150m,
+                            Quantity = 25
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CategoryId = 3,
+                            DatePeremption = new DateTime(2025, 12, 6, 16, 24, 30, 189, DateTimeKind.Local).AddTicks(4769),
+                            Emplacement = "C3",
+                            Name = "T-shirt",
+                            Price = 20m,
+                            Quantity = 50
+                        });
                 });
 
             modelBuilder.Entity("Back.Models.User", b =>
@@ -141,6 +226,14 @@ namespace Back.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Password = "admin",
+                            Username = "admin"
+                        });
                 });
 
             modelBuilder.Entity("Back.Models.Order", b =>

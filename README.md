@@ -18,30 +18,27 @@
 - **🛒 Order management**: Add, modify, delete, and display orders.
 - **📑 Export**: Export datas inside CSV or JSON file.
 
-## 🗄️ Technical Constraints
+## 🛠️ Prerequisites
 
-| Frontend | Backend               |
-| -------- | --------------------- |
-| C# (WPF) | C# (ASP.NET)          |
-| XAML     | SQLite                |
-|          | Entity Framework Core |
+- **.NET SDK**
+- **Visual Studio**
 
 ## 📚 Installation
 
 1. Clone the repository:
 
 ```bash
-git clone
+git clone https://vincmgn/projet-gestion.git
 ```
 
-2. Create a new migration for the database:
+2. Install the dependencies:
 
 ```bash
-cd Back/
-dotnet ef migrations add InitialCreate
+cd projet-gestion
+dotnet restore
 ```
 
-3. Update the database:
+3. Apply the migration:
 
 ```bash
 dotnet ef database update
@@ -50,4 +47,13 @@ dotnet ef database update
 4. Run the application:
 
 ![alt text](image.png)
+
 Click on the "Démarrer" button in Visual Studio.
+
+## 🗄️ Technical Constraints
+
+| Frontend | Backend               |
+| -------- | --------------------- |
+| C# (WPF) | C# (ASP.NET)          |
+| XAML     | SQLite                |
+|          | Entity Framework Core |
