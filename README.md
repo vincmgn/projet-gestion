@@ -41,12 +41,31 @@ dotnet restore
 3. Apply the migration:
 
 ```bash
+cd Back
 dotnet ef database update
 ```
 
-4. Run the application:
+4. Open the solution in Visual Studio:
 
-![alt text](image.png)
+```bash
+cd ..
+start projet-gestion.sln
+```
+
+5. Attach the Backend & Frontend to start the application:
+
+- Click on the arrow next to the "projet-gestion"
+- Click on "Configurer des projets de start-up..."
+  ![alt text](image-2.png)
+- Next, choose "Plusieurs projets de démarrage"
+- Select "Backend" and "Frontend" and choose "Démarrer" for both
+  ![alt text](image-3.png)
+- Apply the changes
+
+5. Run the application:
+
+- Click on "Démarrer"
+  ![alt text](image.png)
 
 Click on the "Démarrer" button in Visual Studio.
 

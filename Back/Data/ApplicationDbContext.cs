@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Back.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Backend.Data
 {
@@ -74,8 +75,10 @@ namespace Backend.Data
             );
 
             // Seed des données pour la table Users
+            var passwordHasher = new PasswordHasher<User>();
+            var hashedPassword = passwordHasher.HashPassword(null, "admin");
             modelBuilder.Entity<User>().HasData(
-                new User { Id = 1, Username = "admin", Password = "admin" }
+                new User { Id = 1, Username = "admin", Password = hashedPassword }
             );
         }
     }
