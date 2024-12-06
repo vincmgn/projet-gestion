@@ -56,16 +56,19 @@ start projet-gestion.sln
 
 - Click on the arrow next to the "projet-gestion"
 - Click on "Configurer des projets de start-up..."
-  ![alt text](image-2.png)
+
+![alt text](image-2.png)
 - Next, choose "Plusieurs projets de démarrage"
 - Select "Backend" and "Frontend" and choose "Démarrer" for both
-  ![alt text](image-3.png)
+
+![alt text](image-3.png)
 - Apply the changes
 
 5. Run the application:
 
 - Click on "Démarrer"
-  ![alt text](image.png)
+
+![alt text](image.png)
 
 Click on the "Démarrer" button in Visual Studio.
 
