@@ -16,6 +16,7 @@
 - **🗂️ Category management**: Add, modify, delete, and display categories.
 - **👥 Customer management**: Add, modify, delete, and display customers.
 - **🛒 Order management**: Add, modify, delete, and display orders.
+- **📑 Export**: Export datas inside CSV or JSON file.
 
 ## 🗄️ Technical Constraints
 
