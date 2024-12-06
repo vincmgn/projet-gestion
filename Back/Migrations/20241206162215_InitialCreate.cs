@@ -130,16 +130,16 @@ namespace Back.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Password", "Username" },
-                values: new object[] { 1, "AQAAAAIAAYagAAAAEMddtygHfAhT1DOwpU50Podlt4EqpI9X7arkj4llHs3E29dzYpvzLXqRtIuXVYcxZg==", "admin" });
+                values: new object[] { 1, "AQAAAAIAAYagAAAAEOsDsPD2SyTlTO4As7xIe5Eb5M3B9GuKzBOgHLoSAlb5SQQ7qY5uhyR6HWRwGAJTbg==", "admin" });
 
             migrationBuilder.InsertData(
                 table: "Products",
                 columns: new[] { "Id", "CategoryId", "DatePeremption", "Emplacement", "Name", "Price", "Quantity" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2026, 12, 6, 16, 57, 7, 502, DateTimeKind.Local).AddTicks(9079), "A1", "Laptop", 1000m, 10 },
-                    { 2, 2, new DateTime(2029, 12, 6, 16, 57, 7, 502, DateTimeKind.Local).AddTicks(9129), "B2", "Chair", 150m, 25 },
-                    { 3, 3, new DateTime(2025, 12, 6, 16, 57, 7, 502, DateTimeKind.Local).AddTicks(9132), "C3", "T-shirt", 20m, 50 }
+                    { 1, 1, new DateTime(2026, 12, 6, 17, 22, 14, 899, DateTimeKind.Local).AddTicks(2815), "A1", "Laptop", 1000m, 4 },
+                    { 2, 2, new DateTime(2029, 12, 6, 17, 22, 14, 899, DateTimeKind.Local).AddTicks(2868), "B2", "Chair", 150m, 25 },
+                    { 3, 3, new DateTime(2025, 12, 6, 17, 22, 14, 899, DateTimeKind.Local).AddTicks(2872), "C3", "T-shirt", 20m, 50 }
                 });
 
             migrationBuilder.InsertData(
@@ -147,8 +147,9 @@ namespace Back.Migrations
                 columns: new[] { "Id", "ClientId", "DateCommande", "ProductId", "Quantity", "Statut" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2024, 12, 6, 16, 57, 7, 502, DateTimeKind.Local).AddTicks(9164), 1, 2, "En cours" },
-                    { 2, 2, new DateTime(2024, 12, 6, 16, 57, 7, 502, DateTimeKind.Local).AddTicks(9166), 3, 5, "Livrée" }
+                    { 1, 1, new DateTime(2024, 12, 6, 17, 22, 14, 899, DateTimeKind.Local).AddTicks(2906), 1, 2, "En attente" },
+                    { 2, 2, new DateTime(2024, 12, 6, 17, 22, 14, 899, DateTimeKind.Local).AddTicks(2908), 3, 5, "Livrée" },
+                    { 3, 1, new DateTime(2024, 12, 6, 17, 22, 14, 899, DateTimeKind.Local).AddTicks(2910), 2, 1, "Expédiée" }
                 });
 
             migrationBuilder.CreateIndex(

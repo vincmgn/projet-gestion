@@ -57,7 +57,7 @@ namespace Backend.Data
 
             // Seed des données pour la table Products
             modelBuilder.Entity<Product>().HasData(
-                new Product { Id = 1, Name = "Laptop", Quantity = 10, Price = 1000m, DatePeremption = DateTime.Now.AddYears(2), CategoryId = 1, Emplacement = "A1" },
+                new Product { Id = 1, Name = "Laptop", Quantity = 4, Price = 1000m, DatePeremption = DateTime.Now.AddYears(2), CategoryId = 1, Emplacement = "A1" },
                 new Product { Id = 2, Name = "Chair", Quantity = 25, Price = 150m, DatePeremption = DateTime.Now.AddYears(5), CategoryId = 2, Emplacement = "B2" },
                 new Product { Id = 3, Name = "T-shirt", Quantity = 50, Price = 20m, DatePeremption = DateTime.Now.AddYears(1), CategoryId = 3, Emplacement = "C3" }
             );

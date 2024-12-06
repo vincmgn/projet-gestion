@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Back.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241206155707_InitialCreate")]
+    [Migration("20241206162215_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -126,19 +126,28 @@ namespace Back.Migrations
                         {
                             Id = 1,
                             ClientId = 1,
-                            DateCommande = new DateTime(2024, 12, 6, 16, 57, 7, 502, DateTimeKind.Local).AddTicks(9164),
+                            DateCommande = new DateTime(2024, 12, 6, 17, 22, 14, 899, DateTimeKind.Local).AddTicks(2906),
                             ProductId = 1,
                             Quantity = 2,
-                            Statut = "En cours"
+                            Statut = "En attente"
                         },
                         new
                         {
                             Id = 2,
                             ClientId = 2,
-                            DateCommande = new DateTime(2024, 12, 6, 16, 57, 7, 502, DateTimeKind.Local).AddTicks(9166),
+                            DateCommande = new DateTime(2024, 12, 6, 17, 22, 14, 899, DateTimeKind.Local).AddTicks(2908),
                             ProductId = 3,
                             Quantity = 5,
                             Statut = "Livrée"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ClientId = 1,
+                            DateCommande = new DateTime(2024, 12, 6, 17, 22, 14, 899, DateTimeKind.Local).AddTicks(2910),
+                            ProductId = 2,
+                            Quantity = 1,
+                            Statut = "Expédiée"
                         });
                 });
 
@@ -180,17 +189,17 @@ namespace Back.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
-                            DatePeremption = new DateTime(2026, 12, 6, 16, 57, 7, 502, DateTimeKind.Local).AddTicks(9079),
+                            DatePeremption = new DateTime(2026, 12, 6, 17, 22, 14, 899, DateTimeKind.Local).AddTicks(2815),
                             Emplacement = "A1",
                             Name = "Laptop",
                             Price = 1000m,
-                            Quantity = 10
+                            Quantity = 4
                         },
                         new
                         {
                             Id = 2,
                             CategoryId = 2,
-                            DatePeremption = new DateTime(2029, 12, 6, 16, 57, 7, 502, DateTimeKind.Local).AddTicks(9129),
+                            DatePeremption = new DateTime(2029, 12, 6, 17, 22, 14, 899, DateTimeKind.Local).AddTicks(2868),
                             Emplacement = "B2",
                             Name = "Chair",
                             Price = 150m,
@@ -200,7 +209,7 @@ namespace Back.Migrations
                         {
                             Id = 3,
                             CategoryId = 3,
-                            DatePeremption = new DateTime(2025, 12, 6, 16, 57, 7, 502, DateTimeKind.Local).AddTicks(9132),
+                            DatePeremption = new DateTime(2025, 12, 6, 17, 22, 14, 899, DateTimeKind.Local).AddTicks(2872),
                             Emplacement = "C3",
                             Name = "T-shirt",
                             Price = 20m,
@@ -231,7 +240,7 @@ namespace Back.Migrations
                         new
                         {
                             Id = 1,
-                            Password = "AQAAAAIAAYagAAAAEMddtygHfAhT1DOwpU50Podlt4EqpI9X7arkj4llHs3E29dzYpvzLXqRtIuXVYcxZg==",
+                            Password = "AQAAAAIAAYagAAAAEOsDsPD2SyTlTO4As7xIe5Eb5M3B9GuKzBOgHLoSAlb5SQQ7qY5uhyR6HWRwGAJTbg==",
                             Username = "admin"
                         });
                 });

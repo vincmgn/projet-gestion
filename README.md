@@ -58,10 +58,12 @@ start projet-gestion.sln
 - Click on "Configurer des projets de start-up..."
 
 ![alt text](image-2.png)
+
 - Next, choose "Plusieurs projets de démarrage"
 - Select "Backend" and "Frontend" and choose "Démarrer" for both
 
 ![alt text](image-3.png)
+
 - Apply the changes
 
 5. Run the application:
@@ -72,6 +74,32 @@ start projet-gestion.sln
 
 Click on the "Démarrer" button in Visual Studio.
 
+6. Credentials:
+   - username : admin
+   - password : admin
+
+## 🔄 If you make changes to the database context:
+
+1. Discard the current migration:
+
+```bash
+  cd Back
+  dotnet ef database update 0
+  dotnet ef migrations remove
+```
+
+2. Create a new migration:
+
+```bash
+  dotnet ef migrations add <migration-name>
+```
+
+3. Apply the migration:
+
+```bash
+  dotnet ef database update
+```
+
 ## 🗄️ Technical Constraints
 
 | Frontend | Backend               |
@@ -79,3 +107,7 @@ Click on the "Démarrer" button in Visual Studio.
 | C# (WPF) | C# (ASP.NET)          |
 | XAML     | SQLite                |
 |          | Entity Framework Core |
+
+```
+
+```
