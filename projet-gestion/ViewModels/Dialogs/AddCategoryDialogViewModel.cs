@@ -11,17 +11,12 @@ namespace projet_gestion.ViewModels.Dialogs
     {
         private readonly HttpClient _httpClient;
 
-        // Propriétés existantes
         public int? CategoryId { get; set; }
         public string CategoryName { get; set; }
         public ICommand AddCategoryCommand { get; }
         public ICommand CancelCommand { get; }
         public event Action OnCategoryAdded;
-
-        // Nouvelle propriété pour gérer le mode
         public bool IsEditMode => CategoryId.HasValue;
-
-        // Propriétés dynamiques pour le titre et le bouton
         public string DialogTitle => IsEditMode ? "Modifier une catégorie" : "Ajouter une catégorie";
         public string ActionButtonContent => IsEditMode ? "Modifier" : "Ajouter";
 
@@ -41,8 +36,8 @@ namespace projet_gestion.ViewModels.Dialogs
             }
 
             string apiUrl = IsEditMode
-                ? $"http://localhost:5042/api/categories/{CategoryId}"  // API pour modifier
-                : "http://localhost:5042/api/categories";               // API pour ajouter
+                ? $"http://localhost:5042/api/categories/{CategoryId}"
+                : "http://localhost:5042/api/categories";
 
             try
             {

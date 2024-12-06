@@ -5,9 +5,9 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:projet_gestion.Views"
       xmlns:fa="http://schemas.fontawesome.io/icons/"
-      xmlns:liveCharts="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="600" d:DesignWidth="800"
       Title="DashboardPage">
 
     <Grid Background="#f0f4f8">
@@ -25,6 +25,17 @@
             <TextBlock Text="Montant total des ventes : " FontWeight="Bold" FontSize="16" Foreground="#3f51b5"/>
             <TextBlock Text="{Binding TotalSales, StringFormat=C}" FontSize="16" Foreground="#e0e200" Margin="10,0,0,0"/>
         </StackPanel>
+
+        <Grid VerticalAlignment="Top" Margin="0,80,0,0" Height="500">
+            <lvc:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="Left" Margin="20,10,20,0">
+                <lvc:CartesianChart.AxisX>
+                    <lvc:Axis Title="Produits" Labels="{Binding Labels}"></lvc:Axis>
+                </lvc:CartesianChart.AxisX>
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis Title="Nombre de ventes" LabelFormatter="{Binding Formatter}"></lvc:Axis>
+                </lvc:CartesianChart.AxisY>
+            </lvc:CartesianChart>
+        </Grid>
 
         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="20,0,20,150">
             <fa:FontAwesome Icon="Warning" Foreground="#d32f2f" Padding="6"/>

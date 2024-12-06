@@ -1,11 +1,11 @@
 ﻿using LiveCharts;
 using LiveCharts.Wpf;
 using Newtonsoft.Json;
+using NuGet.Packaging;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace projet_gestion.ModelViews
@@ -47,21 +47,25 @@ namespace projet_gestion.ModelViews
             }
         }
 
-        public ObservableCollection<string> LowStockNotifications { get; set; }
-
         private readonly HttpClient _httpClient;
+        public ObservableCollection<string> LowStockNotifications { get; set; }
+        public SeriesCollection SeriesCollection { get; set; }
+        public ObservableCollection<string> Labels { get; set; }
+        public Func<double, string> Formatter { get; set; }
+
 
         public DashboardPageModel()
         {
             _httpClient = new HttpClient();
             LowStockNotifications = new ObservableCollection<string>();
             Top3ChartValues = new ObservableCollection<ColumnSeries>();
+            Labels = new ObservableCollection<string>();
 
             // Chargement des données au démarrage
             _ = LoadLowStockNotifications();
             _ = LoadBestSeller();
             _ = LoadTotalSales();
-            _ = LoadTop3();
+            _ = LoadTop3Chart();
         }
 
         // Méthode pour charger les notifications de stock faible
@@ -133,8 +137,49 @@ namespace projet_gestion.ModelViews
             }
         }
 
-        // Méthode pour charger les top 3 produits
-        
+        // Méthode pour charger les top 3 produits avec : Wpf.CartesianChart.Basic_Bars
+        private async Task LoadTop3Chart()
+        {
+            string apiUrl = "http://localhost:5042/api/orders/top3";
+
+            try
+            {
+                var response = await _httpClient.GetStringAsync(apiUrl);
+                var top3 = JsonConvert.DeserializeObject<List<TopProduct>>(response);
+
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    // Réinitialisation des données
+                    SeriesCollection = new SeriesCollection
+                    {
+                        new ColumnSeries
+                        {
+                            Title = "Top 3",
+                            Values = new ChartValues<int>()
+                        }
+                    };
+
+                    Labels.Clear();
+                    foreach (var product in top3)
+                    {
+                        SeriesCollection[0].Values.Add(product.Quantity);
+                        Labels.Add(product.ProductName);
+                    }
+
+                    Formatter = value => value.ToString("N");
+
+                    // Notification des changements
+                    OnPropertyChanged(nameof(SeriesCollection));
+                    OnPropertyChanged(nameof(Labels));
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erreur lors du chargement du Top 3 des produits : {ex.Message}");
+            }
+        }
+
+
 
         // Implémentation de l'interface INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;

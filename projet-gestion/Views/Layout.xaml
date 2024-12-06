@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:projet_gestion.Views"
         xmlns:fa="http://schemas.fontawesome.io/icons/"    
         mc:Ignorable="d"
-        Title="Dashboard" Height="600" Width="1200">
+        Title="Dashboard" Height="800" Width="1200">
     <Grid>
         <!-- Sidebar Navigation -->
         <StackPanel Background="#333" Width="200" HorizontalAlignment="Left">
