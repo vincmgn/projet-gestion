@@ -28,7 +28,7 @@
 1. Clone the repository:
 
 ```bash
-git clone https://vincmgn/projet-gestion.git
+git clone https://github.com/vincmgn/projet-gestion.git
 ```
 
 2. Install the dependencies:
