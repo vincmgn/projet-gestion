@@ -107,7 +107,3 @@ Click on the "Démarrer" button in Visual Studio.
 | C# (WPF) | C# (ASP.NET)          |
 | XAML     | SQLite                |
 |          | Entity Framework Core |
-
-```
-
-```
