@@ -14,7 +14,7 @@
             <DataGrid Name="CategoriesDataGrid" 
                       AutoGenerateColumns="False" 
                       IsReadOnly="True" 
-                      Height="300" 
+                      Height="550" 
                       Background="#ffffff" 
                       BorderBrush="#1e88e5" 
                       BorderThickness="1"
@@ -33,7 +33,6 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <!-- Bouton de modification -->
                                     <Button Width="25" Height="25" Margin="5" 
                                             Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                             CommandParameter="{Binding}"
@@ -49,7 +48,6 @@
                                         </Button.Content>
                                     </Button>
 
-                                    <!-- Bouton de suppression -->
                                     <Button Width="25" Height="25" Margin="5" 
                                             Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                             CommandParameter="{Binding}"
@@ -71,19 +69,45 @@
 
                 </DataGrid.Columns>
             </DataGrid>
+            <StackPanel Orientation="Horizontal">
 
-            <Button Content="Ajouter une catégorie" 
-                    Width="180" 
-                    Margin="0,20,0,0" 
-                    HorizontalAlignment="Left" 
-                    Background="#1e88e5" 
-                    Foreground="White" 
-                    FontWeight="Bold" 
-                    BorderBrush="#1565c0" 
-                    BorderThickness="2" 
-                    Padding="10,5" 
-                    Cursor="Hand" 
-                    Command="{Binding AddCategoryCommand}" />
+                <Button Content="Ajouter une catégorie" 
+                        Width="180" 
+                        Margin="0,20,0,0" 
+                        HorizontalAlignment="Left" 
+                        Background="#1e88e5" 
+                        Foreground="White" 
+                        FontWeight="Bold" 
+                        BorderBrush="#1565c0" 
+                        BorderThickness="2" 
+                        Padding="10,5" 
+                        Cursor="Hand" 
+                        Command="{Binding AddCategoryCommand}" />
+                <Button Content="Exporter en CSV" 
+                        Width="180" 
+                        Margin="20,20,0,0" 
+                        HorizontalAlignment="Left" 
+                        Background="#1e7d01" 
+                        Foreground="White" 
+                        FontWeight="Bold" 
+                        BorderBrush="#145500" 
+                        BorderThickness="2" 
+                        Padding="10,5" 
+                        Cursor="Hand" 
+                        Command="{Binding ExportToCSVCommand}" />
+                <Button Content="Exporter en JSON" 
+                        Width="180" 
+                        Margin="20,20,0,0" 
+                        HorizontalAlignment="Left" 
+                        Background="#d0c000 " 
+                        Foreground="White" 
+                        FontWeight="Bold" 
+                        BorderBrush="#b2a500" 
+                        BorderThickness="2" 
+                        Padding="10,5" 
+                        Cursor="Hand" 
+                        Command="{Binding ExportToJSONCommand}" />
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Page>

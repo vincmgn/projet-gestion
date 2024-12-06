@@ -10,7 +10,7 @@
             <DataGrid Name="OrdersDataGrid" 
                       AutoGenerateColumns="False" 
                       IsReadOnly="True" 
-                      Height="400"
+                      Height="550"
                       Background="#ffffff"
                       BorderBrush="#FFC107" 
                       BorderThickness="1"
@@ -66,11 +66,36 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-            <Button Content="Ajouter une commande" Width="150" Margin="0,20,0,0" HorizontalAlignment="Left"
-                    Background="#FFC107" Foreground="White" FontWeight="Bold"
-                    BorderBrush="#FFA000" BorderThickness="2"
-                    Padding="10,5" Cursor="Hand" Command="{Binding AddOrderCommand}"/>
-
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Ajouter une commande" Width="150" Margin="0,20,0,0" HorizontalAlignment="Left"
+                        Background="#FFC107" Foreground="White" FontWeight="Bold"
+                        BorderBrush="#FFA000" BorderThickness="2"
+                        Padding="10,5" Cursor="Hand" Command="{Binding AddOrderCommand}"/>
+                <Button Content="Exporter en CSV" 
+                        Width="180" 
+                        Margin="20,20,0,0" 
+                        HorizontalAlignment="Left" 
+                        Background="#1e7d01" 
+                        Foreground="White" 
+                        FontWeight="Bold" 
+                        BorderBrush="#145500" 
+                        BorderThickness="2" 
+                        Padding="10,5" 
+                        Cursor="Hand" 
+                        Command="{Binding ExportToCSVCommand}" />
+                <Button Content="Exporter en JSON" 
+                        Width="180" 
+                        Margin="20,20,0,0" 
+                        HorizontalAlignment="Left" 
+                        Background="#d0c000 " 
+                        Foreground="White" 
+                        FontWeight="Bold" 
+                        BorderBrush="#b2a500" 
+                        BorderThickness="2" 
+                        Padding="10,5" 
+                        Cursor="Hand" 
+                        Command="{Binding ExportToJSONCommand}" />
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Page>

@@ -6,6 +6,9 @@ using System.Net.Http.Json;
 using System.Windows;
 using projet_gestion.Views.Dialogs;
 using projet_gestion.ViewModels.Dialogs;
+using System.IO;
+using System.Text;
+using Newtonsoft.Json;
 
 namespace projet_gestion.ViewModels
 {
@@ -16,6 +19,8 @@ namespace projet_gestion.ViewModels
         public ICommand AddProductCommand { get; }
         public ICommand EditCommand { get; }
         public ICommand DeleteCommand { get; }
+        public ICommand ExportToCSVCommand { get; }
+        public ICommand ExportToJSONCommand { get; }
 
         public GestionProductsViewModel()
         {
@@ -24,6 +29,8 @@ namespace projet_gestion.ViewModels
             AddProductCommand = new RelayCommand(param => OpenAddProductDialog());
             EditCommand = new RelayCommand(EditProductAsync);
             DeleteCommand = new RelayCommand(DeleteProduct);
+            ExportToCSVCommand = new RelayCommand(_ => ExportToCSV());
+            ExportToJSONCommand = new RelayCommand(_ => ExportToJSON());
 
             _ = LoadProductsAsync();
         }
@@ -119,6 +126,59 @@ namespace projet_gestion.ViewModels
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Erreur : {ex.Message}");
+                }
+            }
+        }
+
+        private void ExportToCSV()
+        {
+            var saveFileDialog = new Microsoft.Win32.SaveFileDialog
+            {
+                Filter = "Fichiers CSV (*.csv)|*.csv",
+                FileName = "products.csv"
+            };
+
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    var csv = new StringBuilder();
+                    csv.AppendLine("Id;Nom;Quantité;Prix;Date de péremption;Catégorie;Emplacement");
+
+                    foreach (var product in Products)
+                    {
+                        csv.AppendLine($"{product.Id};{product.Name};{product.Quantity};{product.Price};{product.DatePeremption};{product.Category?.Name};{product.Emplacement}");
+                    }
+
+                    File.WriteAllText(saveFileDialog.FileName, csv.ToString());
+                    MessageBox.Show($"Données exportées avec succès en CSV : {saveFileDialog.FileName}");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Erreur lors de l'exportation en CSV : {ex.Message}");
+                }
+            }
+        }
+
+        private void ExportToJSON()
+        {
+            var saveFileDialog = new Microsoft.Win32.SaveFileDialog
+            {
+                Filter = "Fichiers JSON (*.json)|*.json",
+                FileName = "products.json"
+            };
+
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    var jsonContent = JsonConvert.SerializeObject(Products, Formatting.Indented);
+                    File.WriteAllText(saveFileDialog.FileName, jsonContent);
+                    MessageBox.Show($"Données exportées avec succès en JSON : {saveFileDialog.FileName}");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Erreur lors de l'exportation en JSON : {ex.Message}");
                 }
             }
         }
